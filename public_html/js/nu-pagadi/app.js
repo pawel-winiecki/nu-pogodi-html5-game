@@ -15,68 +15,104 @@ GameSpace = {};
         GameSpace.keys = new Array();
         GameSpace.buttons = new Array();
         GameSpace.wolf = new Wolf();
-        GameSpace.eggs = Array();
-
+        GameSpace.eggs = new Eggs();
+        
         var newEggTimer = 0;
         var eggMoveTimer = 0;
 
-        //[<key>,<posX>,<posY>]
-        var imagesData = [
-            ['hare', 155, 72],
-            ['wolf-left', 195, 122],
-            ['basket-left-up', 171, 128],
-            ['basket-left-down', 167, 163],
-            ['wolf-right', 241, 123],
-            ['basket-right-up', 280, 130],
-            ['basket-right-down', 277, 163],
-            ['egg-left-up-1', 135, 113],
-            ['egg-left-up-2', 143, 119],
-            ['egg-left-up-3', 153, 122],
-            ['egg-left-up-4', 160, 128],
-            ['egg-left-up-5', 166, 135],
-            ['egg-left-down-1', 135, 148],
-            ['egg-left-down-2', 143, 119],
-            ['egg-left-down-3', 153, 122],
-            ['egg-left-down-4', 160, 128],
-            ['egg-left-down-5', 166, 135],
-            ['egg-right-up-1', 135, 113],
-            ['egg-right-up-2', 143, 119],
-            ['egg-right-up-3', 153, 122],
-            ['egg-right-up-4', 160, 128],
-            ['egg-right-up-5', 166, 135],
-            ['egg-right-down-1', 135, 113],
-            ['egg-right-down-2', 143, 119],
-            ['egg-right-down-3', 153, 122],
-            ['egg-right-down-4', 160, 128],
-            ['egg-right-down-5', 166, 135],
-            ['button-left-down', 38, 234],
-            ['button-left-up', 38, 178],
-            ['button-right-down', 401, 234],
-            ['button-right-up', 401, 178]
-        ];
-
         function preload() {
 
+            //[<key>]
+            var imagesData = [
+                'hare',
+                'wolf-left',
+                'basket-left-up',
+                'basket-left-down',
+                'wolf-right',
+                'basket-right-up',
+                'basket-right-down',
+                'egg-left-1',
+                'egg-left-2',
+                'egg-left-3',
+                'egg-left-4',
+                'egg-left-5',
+                'egg-right-1',
+                'egg-right-2',
+                'egg-right-3',
+                'egg-right-4',
+                'egg-right-5',
+                'button-left-down',
+                'button-left-up',
+                'button-right-down',
+                'button-right-up'
+            ];
+
             for (var i = 0; i < imagesData.length; i++) {
-                game.load.image(imagesData[i][0], 'img/svg/' + imagesData[i][0] + '.svg');
+                game.load.image(imagesData[i], 'img/svg/' + imagesData[i] + '.svg');
             }
 
         }
 
         function create() {
 
-            for (var i = 0; i < spritesData.length - 4; i++) {
+            //[<key>,<image>,<posX>,<posY>]
+            var spritesData = [
+                ['hare', 'hare', 155, 72],
+                ['wolf-left', 'wolf-left', 195, 122],
+                ['basket-left-up', 'basket-left-up', 171, 128],
+                ['basket-left-down', 'basket-left-down', 167, 163],
+                ['wolf-right', 'wolf-right', 241, 123],
+                ['basket-right-up', 'basket-right-up', 280, 130],
+                ['basket-right-down', 'basket-right-down', 277, 163],
+                ['egg-left-up-1', 'egg-left-1', 135, 113],
+                ['egg-left-up-2', 'egg-left-2', 143, 119],
+                ['egg-left-up-3', 'egg-left-3', 153, 122],
+                ['egg-left-up-4', 'egg-left-4', 160, 128],
+                ['egg-left-up-5', 'egg-left-5', 166, 135],
+                ['egg-left-down-1', 'egg-left-1', 135, 149],
+                ['egg-left-down-2', 'egg-left-2', 143, 156],
+                ['egg-left-down-3', 'egg-left-3', 153, 158],
+                ['egg-left-down-4', 'egg-left-4', 160, 166],
+                ['egg-left-down-5', 'egg-left-5', 166, 171],
+                ['egg-right-up-1', 'egg-right-1', 338, 114],
+                ['egg-right-up-2', 'egg-right-2', 331, 117],
+                ['egg-right-up-3', 'egg-right-3', 324, 121],
+                ['egg-right-up-4', 'egg-right-4', 316, 125],
+                ['egg-right-up-5', 'egg-right-5', 308, 131],
+                ['egg-right-down-1', 'egg-right-1', 338, 150],
+                ['egg-right-down-2', 'egg-right-2', 331, 154],
+                ['egg-right-down-3', 'egg-right-3', 324, 157],
+                ['egg-right-down-4', 'egg-right-4', 316, 161],
+                ['egg-right-down-5', 'egg-right-5', 308, 167],
+            ];
+
+            for (var i = 0; i < spritesData.length; i++) {
                 GameSpace.sprites[spritesData[i][0]] =
                         game.add.sprite(
-                                spritesData[i][1] * GameSpace.scale,
                                 spritesData[i][2] * GameSpace.scale,
-                                spritesData[i][0]
+                                spritesData[i][3] * GameSpace.scale,
+                                spritesData[i][1]
                                 );
                 GameSpace.sprites[spritesData[i][0]].scale.setTo(GameSpace.scale, GameSpace.scale);
                 GameSpace.sprites[spritesData[i][0]].kill();
             }
+            
+            var fontSize = GameSpace.scale * 16;
 
-            spritesData = null;
+            var savedText = game.add.text(GameSpace.scale*300, GameSpace.scale*80, "0", {
+
+                font: fontSize+"px lets_go_digitalregular",
+                fill: "#000000",
+                align: "center"
+            });
+            var brokenText = game.add.text(GameSpace.scale*300, GameSpace.scale*100, "0", {
+
+                font: fontSize+"px lets_go_digitalregular",
+                fill: "#da251d",
+                align: "center"
+            });
+            
+            GameSpace.score = new Score(savedText,brokenText);
 
             GameSpace.wolf.render();
 
@@ -90,31 +126,48 @@ GameSpace = {};
             GameSpace.buttons['right-up'].scale.setTo(GameSpace.scale, GameSpace.scale);
 
             GameSpace.keys['LEFT'] = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
-            GameSpace.keys['LEFT'].onDown.add(GameSpace.wolf.moveWolfLeft, this);
+            GameSpace.keys['LEFT'].onDown.add(GameSpace.wolf.moveWolfLeft, GameSpace.wolf);
 
             GameSpace.keys['RIGHT'] = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
-            GameSpace.keys['RIGHT'].onDown.add(GameSpace.wolf.moveWolfRight, this);
+            GameSpace.keys['RIGHT'].onDown.add(GameSpace.wolf.moveWolfRight, GameSpace.wolf);
 
             GameSpace.keys['UP'] = game.input.keyboard.addKey(Phaser.Keyboard.UP);
-            GameSpace.keys['UP'].onDown.add(GameSpace.wolf.moveBasketUp, this);
+            GameSpace.keys['UP'].onDown.add(GameSpace.wolf.moveBasketUp, GameSpace.wolf);
 
             GameSpace.keys['DOWN'] = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
-            GameSpace.keys['DOWN'].onDown.add(GameSpace.wolf.moveBasketDown, this);
+            GameSpace.keys['DOWN'].onDown.add(GameSpace.wolf.moveBasketDown, GameSpace.wolf);
 
         }
 
         function update() {
             if (game.time.now > eggMoveTimer) {
-                for (var i = 0; i < GameSpace.eggs.length; i++) {
-                    GameSpace.eggs[i].move();
-                }
-                
-                eggMoveTimer = game.time.now + 1000;
+                GameSpace.eggs.moveNextEgg();
+
+                eggMoveTimer = game.time.now + 300;
             }
 
             if (game.time.now > newEggTimer) {
-                GameSpace.eggs.push(new Egg('left-up'));
-                newEggTimer = game.time.now + 6000;
+
+                var horizontal;
+
+                if (Math.random() > 0.5) {
+                    horizontal = 'left';
+                } else {
+                    horizontal = 'right';
+                }
+
+                var vertical;
+
+                if (Math.random() > 0.5) {
+                    vertical = 'up';
+                } else {
+                    vertical = 'down';
+                }
+
+//                var egg = new Egg(horizontal + '-' + vertical);
+//                egg.move();
+                GameSpace.eggs.add(new Egg(horizontal,vertical));
+                newEggTimer = game.time.now + 1500;
             }
         }
 

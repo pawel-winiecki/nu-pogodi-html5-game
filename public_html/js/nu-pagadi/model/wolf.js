@@ -5,16 +5,16 @@
  */
 function Wolf(basketPosition, wolfPosition) {
 
-    basketPosition = basketPosition || 0;
-    wolfPosition = wolfPosition || 0;
+    this.basketPosition = basketPosition || 0;
+    this.wolfPosition = wolfPosition || 0;
 
     this.render = function() {
-        if (wolfPosition) {
+        if (this.wolfPosition) {
             GameSpace.sprites['wolf-right'].reset(
                     GameSpace.sprites['wolf-right'].x,
                     GameSpace.sprites['wolf-right'].y
                     );
-            if (basketPosition) {
+            if (this.basketPosition) {
                 GameSpace.sprites['basket-right-up'].reset(
                     GameSpace.sprites['basket-right-up'].x,
                     GameSpace.sprites['basket-right-up'].y
@@ -30,7 +30,7 @@ function Wolf(basketPosition, wolfPosition) {
                     GameSpace.sprites['wolf-left'].x,
                     GameSpace.sprites['wolf-left'].y
                     );
-            if (basketPosition) {
+            if (this.basketPosition) {
                 GameSpace.sprites['basket-left-up'].reset(
                     GameSpace.sprites['basket-left-up'].x,
                     GameSpace.sprites['basket-left-up'].y
@@ -45,58 +45,58 @@ function Wolf(basketPosition, wolfPosition) {
     };
 
     this.moveWolfLeft = function() {
-        if (wolfPosition) {
+        if (this.wolfPosition) {
 
             move('wolf-right', 'wolf-left');
 
-            if (basketPosition) {
+            if (this.basketPosition) {
                 move('basket-right-up', 'basket-left-up');
             } else {
                 move('basket-right-down', 'basket-left-down');
             }
 
-            wolfPosition = 0;
+            this.wolfPosition = 0;
 
         }
     };
 
     this.moveWolfRight = function() {
-        if (!wolfPosition) {
+        if (!this.wolfPosition) {
 
             move('wolf-left', 'wolf-right');
 
-            if (basketPosition) {
+            if (this.basketPosition) {
                 move('basket-left-up', 'basket-right-up');
             } else {
                 move('basket-left-down', 'basket-right-down');
             }
 
-            wolfPosition = 1;
+            this.wolfPosition = 1;
 
         }
     };
 
     this.moveBasketUp = function() {
-        if (!basketPosition) {
-            if (wolfPosition) {
+        if (!this.basketPosition) {
+            if (this.wolfPosition) {
                 move('basket-right-down', 'basket-right-up');
             } else {
                 move('basket-left-down', 'basket-left-up');
             }
 
-            basketPosition = 1;
+            this.basketPosition = 1;
         }
     };
 
     this.moveBasketDown = function() {
-        if (basketPosition) {
-            if (wolfPosition) {
+        if (this.basketPosition) {
+            if (this.wolfPosition) {
                 move('basket-right-up', 'basket-right-down');
             } else {
                 move('basket-left-up', 'basket-left-down');
             }
 
-            basketPosition = 0;
+            this.basketPosition = 0;
         }
     };
 
@@ -109,11 +109,11 @@ function Wolf(basketPosition, wolfPosition) {
     };
     
     this.getBasketPosition = function() {
-        return basketPosition;
+        return this.basketPosition;
     };
     
     this.getWolfPosition = function() {
-        return wolfPosition;
+        return this.wolfPosition;
     };
 
 }
