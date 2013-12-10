@@ -24,44 +24,38 @@ function Egg(horizontal, vertical) {
 
 Egg.prototype = {
     move: function() {
-        this.sprites[this.route + '-' + this.position].kill();
 
-        this.position++;
+        if (this.position < 5) {
+            var newSprite = this.sprites[this.route + '-' + (this.position + 1)];
 
-        if (this.position < 6) {
-            this.sprites[this.route + '-' + this.position].reset(
-                    this.sprites[this.route + '-' + this.position].x,
-                    this.sprites[this.route + '-' + this.position].y
-                    );
+            if (!newSprite.alive) {
+                this.sprites[this.route + '-' + this.position].kill();
+
+                this.position++;
+
+                newSprite.reset(newSprite.x,newSprite.y);
+                
+                return true;
+            } else {
+                return false;
+            }
         } else {
+            this.sprites[this.route + '-' + this.position].kill();
+
             this.eggs.remove(this);
 
-            var vertical;
+            var vertical = (this.vertical === 'up') ? 1 : 0;
+            var horizontal = (this.horizontal === 'right') ? 1 : 0;
 
-            if(this.vertical === 'up') {
-                vertical = 1;
-            } else {
-                vertical = 0;
-            }
-            
-            var horizontal;
-            
-            if(this.horizontal === 'right') {
-                horizontal = 1;
-            } else {
-                horizontal = 0;
-            }
-            
-//            alert('wolf: '+GameSpace.wolf.basketPosition+' '
-//                    +GameSpace.wolf.wolfPosition
-//                    +' egg'+ this.horizontal + ' '+horizontal
-//                    + this.vertical + ' '+ vertical);
-                
             if ((this.wolf.getBasketPosition() === vertical) && (this.wolf.getWolfPosition() === horizontal)) {
                 this.score.eggSaved();
             } else {
                 this.score.eggBroken();
+                GameSpace.birds.push(new Bird(this.horizontal));
             }
+
+            return true;
         }
+
     }
 };
