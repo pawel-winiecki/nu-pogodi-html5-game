@@ -3,14 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-function Eggs() {
-    this.length = 0;
-    this.head = null;
-    this.nextEgg = null;
+function Eggs(state) {
+
+    this.state = state;
 
 }
 
 Eggs.prototype = {
+    length: 0,
+    head: null,
+    nextEgg: null,
     add: function(egg) {
         var node = {
             data: egg,
@@ -56,14 +58,14 @@ Eggs.prototype = {
         }
     },
     addNewEgg: function() {
-              
+
         var horizontal = (Math.random() > 0.5) ? 'left' : 'right';
 
         var vertical = (Math.random() > 0.5) ? 'up' : 'down';
-        
-        if(!GameSpace.sprites['egg-'+horizontal+'-'+vertical+'-1'].alive) {
-            this.add(new Egg(horizontal, vertical));
-            
+
+        if (!this.state.sprites['egg-' + horizontal + '-' + vertical + '-1'].alive) {
+            this.add(new Egg(horizontal, vertical, this.state));
+
             return true;
         } else {
             return false;
@@ -74,15 +76,23 @@ Eggs.prototype = {
 
         if (this.nextEgg) {
             hasMoved = this.nextEgg.data.move();
-
-            if (this.nextEgg.next) {
-                this.nextEgg = this.nextEgg.next;
+            if (this.length > 0) {
+                if (this.nextEgg.next) {
+                    this.nextEgg = this.nextEgg.next;
+                } else {
+                    this.nextEgg = this.head;
+                }
             } else {
-                this.nextEgg = this.head;
+                this.addNewEgg();
             }
         }
 
         return hasMoved;
+    },
+    clear: function() {
+        this.head = null;
+        this.next = null;
+        this.length = 0;
     }
 };
 

@@ -3,25 +3,21 @@ GameSpace = {};
 (function() {
     window.onload = function() {
 
-        if (($(window).width() / $(window).height()) > 1.6) {
-            GameSpace.scale = $(window).height() / 300;
-        } else {
-            GameSpace.scale = $(window).width() / 480;
-        }
+        GameSpace.scaler = new Scaler();
+        GameSpace.scaler.calcScale();
 
-        GameSpace.game = new Phaser.Game(GameSpace.scale * 480, GameSpace.scale * 300, Phaser.AUTO, 'board', {preload: preload, create: create, update: update}, true, false);
+        GameSpace.game = new Phaser.Game(480 * GameSpace.scaler.scale, 300 * GameSpace.scaler.scale, Phaser.AUTO, 'board', null, true, true);
 
-        GameSpace.sprites = new Array();
-        GameSpace.keys = new Array();
-        GameSpace.buttons = new Array();
-        GameSpace.wolf = new Wolf();
-        GameSpace.eggs = new Eggs();
-        GameSpace.birds = new Array();
-        
-        GameSpace.newEggTimer = 2000;
-        GameSpace.eggMoveTimer = 2000;
-        GameSpace.birdMoveTimer = 3500;
+        GameSpace.game.state.add('Preload', GameSpace.PreloadState);
+        GameSpace.game.state.add('Menu', GameSpace.MenuState);
+        GameSpace.game.state.add('Game', new GameState);
+
+        GameSpace.game.state.start('Preload');
+
+        window.onresize = function() {
+            GameSpace.scaler.scaleGame();           
+        };
+
     };
 })();
-
 
