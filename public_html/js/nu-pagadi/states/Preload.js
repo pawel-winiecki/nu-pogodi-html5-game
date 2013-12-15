@@ -12,6 +12,7 @@ GameSpace.PreloadState = function() {
 GameSpace.PreloadState.prototype = {
     preload: function() {
         var imagesData = [
+            'background',
             'hare',
             'wolf-left',
             'basket-left-up',
@@ -21,7 +22,6 @@ GameSpace.PreloadState.prototype = {
             'basket-right-down',
             'bell-0',
             'bell-1',
-            'bird-life',
             'egg-left-1',
             'egg-left-2',
             'egg-left-3',
@@ -52,6 +52,11 @@ GameSpace.PreloadState.prototype = {
         for (var i = 0; i < imagesData.length; i++) {
             this.game.load.image(imagesData[i], './img/svg/' + imagesData[i] + '.svg');
         }
+        
+        //this.game.load.spritesheet('life', './img/svg/life.svg', 14,12);
+        
+        this.game.load.spritesheet('bird-life', './img/svg/bird-life.svg', 14,12);
+
         
         var audioData = [
             'basket',

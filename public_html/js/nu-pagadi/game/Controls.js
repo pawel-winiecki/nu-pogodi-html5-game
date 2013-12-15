@@ -28,18 +28,20 @@ Controls.prototype = {
         this.menuKeys['SPACE'].onDown.add(this.beginGame, this);
 
         var buttons = new Array();
+        
+        var scale = GameSpace.scaler.spriteScale;
 
-        buttons.push(this.game.add.button(this.game.world.centerX - (60 * GameSpace.scaler.scale),
-                this.game.world.centerY - (23 * GameSpace.scaler.scale),
+        buttons.push(this.game.add.button(this.game.world.centerX - (60 * scale),
+                this.game.world.centerY - (23 * scale),
                 'start',
                 this.beginGame, this));
-        buttons.push(this.game.add.button(38 * GameSpace.scaler.scale, 234 * GameSpace.scaler.scale, 'button-left-down', this.beginGame, this));
-        buttons.push(this.game.add.button(38 * GameSpace.scaler.scale, 178 * GameSpace.scaler.scale, 'button-left-up', this.beginGame, this));
-        buttons.push(this.game.add.button(401 * GameSpace.scaler.scale, 234 * GameSpace.scaler.scale, 'button-right-down', this.beginGame, this));
-        buttons.push(this.game.add.button(401 * GameSpace.scaler.scale, 178 * GameSpace.scaler.scale, 'button-right-up', this.beginGame, this));
+        buttons.push(this.game.add.button(30 * scale, 226 * scale, 'button-left-down', this.beginGame, this));
+        buttons.push(this.game.add.button(30 * scale, 170 * scale, 'button-left-up', this.beginGame, this));
+        buttons.push(this.game.add.button(393 * scale, 226 * scale, 'button-right-down', this.beginGame, this));
+        buttons.push(this.game.add.button(393 * scale, 170 * scale, 'button-right-up', this.beginGame, this));
 
         for (var i = 0; i < buttons.length; i++) {
-            buttons[i].scale.setTo(GameSpace.scaler.scale, GameSpace.scaler.scale);
+            buttons[i].scale.setTo(scale, scale);
         }
     },
     beginGame: function() {
@@ -58,14 +60,16 @@ Controls.prototype = {
         this.gameKeys['DOWN'].onDown.add(wolf.moveBasketDown, wolf);
 
         var buttons = new Array();
+        
+        var scale = GameSpace.scaler.spriteScale;
 
-        buttons.push(this.game.add.button(38 * GameSpace.scaler.scale, 234 * GameSpace.scaler.scale, 'button-left-down', this.actionButtonLeftDown, this));
-        buttons.push(this.game.add.button(38 * GameSpace.scaler.scale, 178 * GameSpace.scaler.scale, 'button-left-up', this.actionButtonLeftUp, this));
-        buttons.push(this.game.add.button(401 * GameSpace.scaler.scale, 234 * GameSpace.scaler.scale, 'button-right-down', this.actionButtonRightDown, this));
-        buttons.push(this.game.add.button(401 * GameSpace.scaler.scale, 178 * GameSpace.scaler.scale, 'button-right-up', this.actionButtonRightUp, this));
+        buttons.push(this.game.add.button(30 * scale, 226 * scale, 'button-left-down', this.actionButtonLeftDown, this));
+        buttons.push(this.game.add.button(30 * scale, 170 * scale, 'button-left-up', this.actionButtonLeftUp, this));
+        buttons.push(this.game.add.button(393 * scale, 226 * scale, 'button-right-down', this.actionButtonRightDown, this));
+        buttons.push(this.game.add.button(393 * scale, 170 * scale, 'button-right-up', this.actionButtonRightUp, this));
 
         for (var i = 0; i < buttons.length; i++) {
-            buttons[i].scale.setTo(GameSpace.scaler.scale, GameSpace.scaler.scale);
+            buttons[i].scale.setTo(scale, scale);
         }
 
     },

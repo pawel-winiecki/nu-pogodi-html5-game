@@ -83,6 +83,7 @@ Eggs.prototype = {
                     this.nextEgg = this.head;
                 }
             } else {
+                console.log('Empty so ne wgg.');
                 this.addNewEgg();
             }
         }

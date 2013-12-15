@@ -4,48 +4,43 @@
  * and open the template in the editor.
  */
 function Scaler() {
-    this.scale = 1;
+    this.gameScale = 1;
+    this.spriteScale = 1;
+    this.firstSpriteScaling = 1;
+    this.hasScaled = false;
 }
 
 Scaler.prototype = {
     
-    calcFirstScale: function() {
-        var x,y;
-        
-        //alert('width: '+screen.width + 'height: '+screen.height);
-        
-        if(screen.width > screen.height) {
-            x = screen.width;
-            y = screen.height;
-        } else {
-            x = screen.height;
-            y = screen.width;
-        }
-        
-        if ((x / y) > 1.6) {
-            this.scale = y / 300;
-        } else {
-            this.scale = x / 480;
-        }
-    },
-    
     calcScale: function() {
-        if (($(document).width() / $(document).height()) > 1.6) {
-            return $(document).height() / 300;
+        
+        /*if (($(window).width() / $(window).height()) > 1.6) {
+            this.gameScale = $(window).height() / 300;
         } else {
-            return $(document).width() / 480;
+            this.gameScale = $(window).width() / 480;
         }
+        
+        if(this.hasScaled) {
+            this.spriteScale = this.gameScale/this.spriteScale;
+        } else {
+            
+            
+            this.spriteScale =this.gameScale;
+            this.firstSpriteScaling = this.gameScale;
+            this.hasScaled = true;
+        }*/
+        
     },
     scaleGame: function() {
-        var scale = this.calcScale();
+        
+        this.calcScale();
         
         var game = GameSpace.game;
         
-        game.stage.scale.width = 480 * scale;
-        game.stage.scale.height = 300 * scale;
-        game.stage.scale.refresh();
+        game.stage.scale.width = 480 * this.gameScale;
+        game.stage.scale.height = 300 * this.gameScale;
         
-        //GameSpace.GameState.resize();
+        game.stage.scale.refresh();
 
     }
 };

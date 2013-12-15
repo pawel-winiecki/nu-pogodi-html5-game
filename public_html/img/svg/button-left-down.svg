@@ -9,12 +9,12 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="35.584801"
-   height="36.175987"
+   width="51.584801"
+   height="52.175987"
    id="svg3430"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="Nowy dokument 21">
+   sodipodi:docname="button-left-down.svg">
   <defs
      id="defs3432" />
   <sodipodi:namedview
@@ -25,15 +25,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="7.9195959"
-     inkscape:cx="28.350127"
-     inkscape:cy="24.882906"
+     inkscape:cx="36.350129"
+     inkscape:cy="32.882905"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     fit-margin-top="0"
-     fit-margin-left="0"
-     fit-margin-right="0"
-     fit-margin-bottom="0"
+     fit-margin-top="8"
+     fit-margin-left="8"
+     fit-margin-right="8"
+     fit-margin-bottom="8"
      inkscape:window-width="524"
      inkscape:window-height="415"
      inkscape:window-x="0"
@@ -47,7 +47,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -55,7 +55,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-457.62283,-541.91455)">
+     transform="translate(-449.62283,-533.91455)">
     <g
        id="g3519"
        transform="translate(9.2857143,6.25)">

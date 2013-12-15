@@ -15,6 +15,8 @@ function Hare(state) {
             this.state.sprites['bell-' + this.dingCount].x,
             this.state.sprites['bell-' + this.dingCount].y
             );
+    
+    this.state.isHare = true;
 }
 
 Hare.prototype = {
@@ -35,6 +37,7 @@ Hare.prototype = {
     hide: function() {
         this.state.sprites['hare'].kill();
         this.state.animations.splice(this.state.animations.indexOf(this), 1);
+        this.state.isHare = false;
     }
 };
 

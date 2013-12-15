@@ -7,16 +7,19 @@ function GameState() {
 
     this.sprites = {};
     this.animations = new Array();
-    this.audio =  {};
+    this.audio = {};
 
     this.score = new Score(this);
 
     this.wolf = new Wolf(this);
     this.eggs = new Eggs(this);
 
+    this.isHare = false;
+
     //[<key>,<image>,<posX>,<posY>]
     this.spritesData = [
         ['hare', 'hare', 155, 72],
+        ['background', 'background', 0, 0],
         ['wolf-left', 'wolf-left', 195, 122],
         ['basket-left-up', 'basket-left-up', 171, 128],
         ['basket-left-down', 'basket-left-down', 167, 163],
@@ -67,17 +70,22 @@ GameState.prototype = {
     create: function() {
         this.eggs.clear();
         this.animations = new Array();
+        
+        var scale = GameSpace.scaler.spriteScale;
 
         for (var i = 0; i < this.spritesData.length; i++) {
+                    //console.log(this.spritesData[i][0]);
             this.sprites[this.spritesData[i][0]] =
                     this.game.add.sprite(
-                            this.spritesData[i][2] * GameSpace.scaler.scale,
-                            this.spritesData[i][3] * GameSpace.scaler.scale,
+                            this.spritesData[i][2] * scale,
+                            this.spritesData[i][3] * scale,
                             this.spritesData[i][1]
                             );
-            this.sprites[this.spritesData[i][0]].scale.setTo(GameSpace.scaler.scale, GameSpace.scaler.scale);
+            this.sprites[this.spritesData[i][0]].scale.setTo(scale, scale);
             this.sprites[this.spritesData[i][0]].kill();
         }
+        
+        //console.log('game: '+scale);
 
         var audioData = [
             'basket',
@@ -87,15 +95,15 @@ GameState.prototype = {
             'egg-right-up',
             'egg-right-down'
         ];
-        
+
         for (var i = 0; i < audioData.length; i++) {
             this.audio[audioData[i]] = this.game.add.audio(audioData[i]);
         }
 
         var fontSize = 16;
 
-        var savedText = this.game.add.text(GameSpace.scaler.scale * 300, GameSpace.scaler.scale * 80, "0", {
-            font: GameSpace.scaler.scale * fontSize + "px lets_go_digitalregular",
+        var savedText = this.game.add.text(scale * 300, scale * 80, "0", {
+            font: scale * fontSize + "px lets_go_digitalregular",
             fill: "#000000",
             align: "right"
         });
@@ -104,53 +112,55 @@ GameState.prototype = {
 
         this.score.resetScore();
         this.wolf.render();
-        
+
         GameSpace.controls.prepareGameControls(this.wolf);
 
-        //GameSpace.scaler.scaleGame();
+        //scaleGame();
 
         this.newEggTimer = this.game.time.now + 1000;
         this.eggMoveTimer = this.game.time.now + 1300;
-        this.birdMoveTimer = this.game.time.now + 2500;
+        this.animationsTimer = this.game.time.now + 2500;
         this.hareShowTimer = this.game.time.now + 5000;
 
     },
     update: function() {
         if (this.game.time.now > this.newEggTimer) {
             var added = this.eggs.addNewEgg();
-            this.newEggTimer = this.game.time.now + 300 + ((added) ? this.eggs.length * (300 - this.score.level * 50) : 0);
+            this.newEggTimer = this.game.time.now + (2000 - this.score.level * 50) + ((added) ? this.eggs.length * (500 - this.score.level * 12) : 0);
+            var add = this.newEggTimer - this.game.time.now;
+            //console.log(added + ' ' + add);
 
         }
 
         if ((this.animations.length > 0)
-                && (this.game.time.now > this.birdMoveTimer)) {
+                && (this.game.time.now > this.animationsTimer)) {
             for (var i = 0; i < this.animations.length; i++) {
                 this.animations[i].move();
 
-                this.birdMoveTimer = this.game.time.now + 600;
+                this.animationsTimer = this.game.time.now + 600;
             }
         }
-        
-        
+
+
         if (this.game.time.now > this.eggMoveTimer) {
 
             var moved = this.eggs.moveNextEgg();
-            this.eggMoveTimer = this.game.time.now + ((moved) ? ((600 - this.score.level * 25) / this.eggs.length) : 0);
+            this.eggMoveTimer = this.game.time.now + ((moved) ? ((1000 - this.score.level * 50) / this.eggs.length) : 0);
 
         }
-        
-        
+
+
         if (this.game.time.now > this.hareShowTimer) {
 
             this.animations.push(new Hare(this));
-            this.hareShowTimer = this.game.time.now + 10000 + 10000*(Math.random());
+            this.hareShowTimer = this.game.time.now + 10000 + 10000 * (Math.random());
 
         }
 
     },
 //    resize: function() {
 //        for (var key in this.sprites) {
-//            this.sprites[key].scale.setTo(GameSpace.scaler.scale,GameSpace.scaler.scale);
+//            this.sprites[key].scale.setTo(scale,scale);
 //        } 
 //    }
     endGame: function() {
@@ -158,6 +168,10 @@ GameState.prototype = {
         this.eggMoveTimer = this.game.time.now + 10000;
         this.birdMoveTimer = this.game.time.now + 10000;
         
+//        for(var key in this.sprites) {
+//            this.sprites[key].destroy();
+//        }
+
         GameSpace.score = this.score.savedEggs;
 
         this.game.state.start('Menu');

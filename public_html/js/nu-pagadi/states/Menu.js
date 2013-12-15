@@ -4,14 +4,16 @@
  * and open the template in the editor.
  */
 GameSpace.MenuState = function() {
-
+    
 };
 
 GameSpace.MenuState.prototype = {
     create: function() {
         if (typeof GameSpace.score != 'undefined') {
-            this.game.add.text(this.game.world.centerX - (GameSpace.scaler.scale * 40), GameSpace.scaler.scale * 80, "Your score: " + GameSpace.score, {
-                font: GameSpace.scaler.scale * 15 + "px lets_go_digitalregular",
+            var scale = GameSpace.scaler.spriteScale;
+            
+            this.game.add.text(this.game.world.centerX - (scale * 40), scale * 80, "Your score: " + GameSpace.score, {
+                font: scale * 15 + "px lets_go_digitalregular",
                 fill: "#000000",
                 align: "center"
             });
