@@ -21,7 +21,7 @@ and open the template in the editor.
 
 #board canvas {
     margin: 0 auto;
-    //background-image: url('../img/svg/background.svg');
+    background-image: url('../img/svg/background.svg');
     margin: auto;
     position: absolute;
     top: 0; left: 0; bottom: 0; right: 0;
