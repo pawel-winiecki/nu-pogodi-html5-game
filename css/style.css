@@ -1,0 +1,35 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2013-12-05, 22:11:17
+    Author     : Paweł Winiecki
+*/
+@font-face {
+    font-family: 'lets_go_digitalregular';
+    src: url('../fonts/lets_go_digital_regular/lets_go_digital_regular-webfont.eot');
+    src: url('../fonts/lets_go_digital_regular/lets_go_digital_regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/lets_go_digital_regular/lets_go_digital_regular-webfont.woff') format('woff'),
+         url('../fonts/lets_go_digital_regular/lets_go_digital_regular-webfont.ttf') format('truetype'),
+         url('../fonts/lets_go_digital_regular/lets_go_digital_regular-webfont.svg#lets_go_digitalregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+#board canvas {
+    margin: 0 auto;
+    background-image: url('../img/background.svg');
+    margin: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background-size: 100%;
+}
+
+p.font-starter {
+    color: #fff;
+    font-family: lets_go_digitalregular;
+}
+
