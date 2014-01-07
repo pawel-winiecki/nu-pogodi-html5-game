@@ -8,7 +8,8 @@ var NuPogodi = NuPogodi || {};
 
 /**
  * MenuState constructor
- *
+ * 
+ * @class NuPogodi.MenuState
  * @constructor
  * @see Phaser.State
  */
@@ -17,9 +18,15 @@ NuPogodi.MenuState = function() {
 };
 
 NuPogodi.MenuState.prototype = {
+    /**
+     * Setup operations for Menu state
+     * 
+     * @method NuPogodi.MenuState#create 
+     * @see Phaser.State#create
+     */
     create: function() {
         // showing score if was set
-        if (typeof NuPogodi.score !== 'undefined') {
+        if (typeof NuPogodi.score != 'undefined') {
             this.game.add.text(
                     this.game.world.centerX - 90,
                     this.game.world.centerY + 70,
@@ -63,6 +70,11 @@ NuPogodi.MenuState.prototype = {
 
 
     },
+    /**
+     * Function for start start Game state.
+     * 
+     * @method NuPogodi.MenuState#startGame
+     */
     beginGame: function() {
         this.game.input.keyboard.clearCaptures();
         this.game.state.start('Game');

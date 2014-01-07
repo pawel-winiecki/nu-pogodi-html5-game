@@ -9,6 +9,7 @@ var NuPogodi = NuPogodi || {};
 /**
  * BootState constructor
  *
+ * @class NuPogodi.BootState
  * @constructor
  * @see Phaser.State
  */

@@ -96,7 +96,7 @@ NuPogodi.Egg.prototype = {
             
             // checking is wolf and egg have the same position
             if ((this.state.wolf.getBasketPosition() === this.vertical) 
-                    && (this.state.wolf.getWolfPosition() === this.horizonta)) 
+                    && (this.state.wolf.getWolfPosition() === this.horizontal)) 
             {
                 // infomration to score and playing success sound
                 this.state.score.eggSaved();

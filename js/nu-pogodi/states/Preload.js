@@ -20,6 +20,8 @@ NuPogodi.PreloadState.prototype = {
     /**
      * Loading all assets using in Menu and Game states
      * 
+     * @class NuPogodi.MenuState
+     * @method NuPogodi.PreloadState#preload
      * @see Phaser.State.preload
      */
     preload: function() {
@@ -115,9 +117,13 @@ NuPogodi.PreloadState.prototype = {
 
     },
     /**
-     * Function for progression of Progress Bar
+     * Callback for loaded file.
+     * 
+     * @class NuPogodi.MenuState
+     * @method NuPogodi.PreloadState#fileLoaded
      */
     fileLoaded: function(progress) {
+        // progression of Progress Bar
         this.loaderFull.crop.width = (202 / 100) * progress;
     },
     /**

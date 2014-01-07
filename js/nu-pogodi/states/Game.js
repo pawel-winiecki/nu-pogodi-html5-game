@@ -9,27 +9,77 @@ var NuPogodi = NuPogodi || {};
 /**
  * PreloadState constructor
  *
+ * @class NuPogodi.GameState
  * @constructor
  * @see Phaser.State
  */
 NuPogodi.GameState = function() {
+    'use strict';
 
-    // simple object and arrays for audio, sprites, and non-Phaser 'animations'
+    /**
+     * @property {object} audio - simple key-value container for Phaser.Sound objects.
+     * @default
+     */
     this.audio = {};
+    
+    /**
+     * @property {object} sprites - simple key-value container for Phaser.Sprite objects.
+     * @default
+     */
     this.sprites = {};
+    
+    /**
+     * @property {Array} animations - array of 'animation' objects.
+     * @default
+     */
     this.animations = new Array();
 
-    // special objects using during this state
+    /**
+     * @property {NuPogodi.Score} score - score of actual game.
+     * @default
+     */
     this.score = new NuPogodi.Score(this);
+    
+    /**
+     * @property {NuPogodi.Wolf} wolf - object handlig wolf on screen.
+     * @default
+     */
     this.wolf = new NuPogodi.Wolf(this);
+    
+    /**
+     * @property {NuPogodi.Eggs} eggs - container of eggs.
+     * @default
+     */
     this.eggs = new NuPogodi.Eggs(this);
 
-    // set of timers using in update function
+    /**
+     * @property {number} newEggTimer - timer of adding new egg.
+     * @default
+     */
     this.newEggTimer = 0;
+    
+    /**
+     * @property {number} eggMoveTimer - timer of moving next egg.
+     * @default
+     */
     this.eggMoveTimer = 0;
+    
+    /**
+     * @property {number} animationsTimer - timer of moving all 'animations'.
+     * @default
+     */
     this.animationsTimer = 0;
+    
+    /**
+     * @property {number} hareShowTimer - timer of showing hare on screen.
+     * @default
+     */
     this.hareShowTimer = 0;
     
+    /**
+     * @property {boolean} isHare - true if hare is shown on screen otherwise is false.
+     * @default
+     */
     this.isHare = false;
 
 };
@@ -38,7 +88,8 @@ NuPogodi.GameState.prototype = {
     /**
      * Setup operations for Game state
      * 
-     * @see Phaser.State.create
+     * @method NuPogodi.GameState#create 
+     * @see Phaser.State#create
      */
     create: function() {
         // clearing data
@@ -128,16 +179,15 @@ NuPogodi.GameState.prototype = {
 
         this.wolf.render();
 
-        var gameKeys = {};
-        gameKeys['LEFT'] = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
-        gameKeys['RIGHT'] = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
-        gameKeys['UP'] = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
-        gameKeys['DOWN'] = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
+        var left = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+        var right = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+        var up = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
+        var down = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
 
-        gameKeys['LEFT'].onDown.add(this.wolf.moveWolfLeft, this.wolf);
-        gameKeys['RIGHT'].onDown.add(this.wolf.moveWolfRight, this.wolf);
-        gameKeys['UP'].onDown.add(this.wolf.moveBasketUp, this.wolf);
-        gameKeys['DOWN'].onDown.add(this.wolf.moveBasketDown, this.wolf);
+        left.onDown.add(this.wolf.moveWolfLeft, this.wolf);
+        right.onDown.add(this.wolf.moveWolfRight, this.wolf);
+        up.onDown.add(this.wolf.moveBasketUp, this.wolf);
+        down.onDown.add(this.wolf.moveBasketDown, this.wolf);
 
         this.game.add.button(60, 472, 'button-left-down', this.actionButtonLeftDown, this);
         this.game.add.button(60, 360, 'button-left-up', this.actionButtonLeftUp, this);
@@ -151,6 +201,12 @@ NuPogodi.GameState.prototype = {
         this.hareShowTimer = this.game.time.now + 5000;
 
     },
+    /**
+     * Setup operations for Game state
+     * 
+     * @method NuPogodi.GameState#update
+     * @see Phaser.State#update
+     */
     update: function() {
         // factor is using for calculate timers for new egg end move egg
         // 143 level is limit, later log() take to higher value
@@ -183,7 +239,11 @@ NuPogodi.GameState.prototype = {
         }
 
     },
-    // function for ending game
+    /**
+     * Function for end game and start menu state.
+     * 
+     * @method NuPogodi.GameState#endGame
+     */
     endGame: function() {
         // it's clear all keyboards actions before change state
         this.game.input.keyboard.clearCaptures()
@@ -198,19 +258,38 @@ NuPogodi.GameState.prototype = {
 
         this.game.state.start('Menu');
     },
-    // it's set of function for control Wolf
+    /**
+     * Callback for button.
+     * 
+     * @method NuPogodi.GameState#actionButtonLeftDown
+     */
     actionButtonLeftDown: function() {
         this.wolf.moveWolfLeft();
         this.wolf.moveBasketDown();
     },
+    /**
+     * Callback for button.
+     * 
+     * @method NuPogodi.GameState#actionButtonLeftUp
+     */
     actionButtonLeftUp: function() {
         this.wolf.moveWolfLeft();
         this.wolf.moveBasketUp();
     },
+    /**
+     * Callback for button.
+     * 
+     * @method NuPogodi.GameState#actionButtonRightDown
+     */
     actionButtonRightDown: function() {
         this.wolf.moveWolfRight();
         this.wolf.moveBasketDown();
     },
+    /**
+     * Callback for button.
+     * 
+     * @method NuPogodi.GameState#actionButtonRightUp
+     */
     actionButtonRightUp: function() {
         this.wolf.moveWolfRight();
         this.wolf.moveBasketUp();

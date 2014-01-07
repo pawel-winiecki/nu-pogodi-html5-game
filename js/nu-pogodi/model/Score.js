@@ -8,7 +8,7 @@ var NuPogodi = NuPogodi || {};
 /**
  * Score constructor
  * 
- * @class NuPogodi.Hare
+ * @class NuPogodi.Score
  * @constructor
  * @param {NuPogodi.GameState} state - a reference to the currently running game state.
  */
@@ -17,7 +17,6 @@ NuPogodi.Score = function(state) {
 
     /**
      * @property {NuPogodi.GameState} state - local reference to game state.
-     * @default
      */
     this.state = state;
 
@@ -57,6 +56,7 @@ NuPogodi.Score.prototype = {
 
         this.savedEggs++;
         if (!(this.savedEggs % 10)) {
+            // level increase every 10 saved eggs
             this.level++;
         }
         if (this.savedText) {
