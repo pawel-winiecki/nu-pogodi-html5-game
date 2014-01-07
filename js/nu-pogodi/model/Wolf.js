@@ -1,20 +1,20 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-GameSpace = GameSpace || {};
+/**
+* @author Paweł Winiecki <pawel.winiecki@nerdlab.pl>
+* @copyright 2014 NerdLab.pl
+* @license MIT License
+*/
+NuPogodi = NuPogodi || {};
 
-GameSpace.Wolf = function(state, basketPosition, wolfPosition) {
+NuPogodi.Wolf = function(state, basketPosition, wolfPosition) {
 
     this.state = state;
 
-    this.basketPosition = basketPosition || 0;
-    this.wolfPosition = wolfPosition || 0;
+    this.basketPosition = basketPosition || false;
+    this.wolfPosition = wolfPosition || false;
     
 };
 
-GameSpace.Wolf.prototype = {
+NuPogodi.Wolf.prototype = {
     render: function() {
         if (this.wolfPosition) {
             this.state.sprites['wolf-right'].reset(
@@ -62,7 +62,7 @@ GameSpace.Wolf.prototype = {
                 this.move('basket-right-down', 'basket-left-down');
             }
 
-            this.wolfPosition = 0;
+            this.wolfPosition = false;
 
         }
     },
@@ -78,7 +78,7 @@ GameSpace.Wolf.prototype = {
                 this.move('basket-left-down', 'basket-right-down');
             }
 
-            this.wolfPosition = 1;
+            this.wolfPosition = true;
 
         }
     },
@@ -91,7 +91,7 @@ GameSpace.Wolf.prototype = {
                 this.move('basket-left-down', 'basket-left-up');
             }
 
-            this.basketPosition = 1;
+            this.basketPosition = true;
         }
     },
 
@@ -103,7 +103,7 @@ GameSpace.Wolf.prototype = {
                 this.move('basket-left-up', 'basket-left-down');
             }
 
-            this.basketPosition = 0;
+            this.basketPosition = false;
         }
     },
 

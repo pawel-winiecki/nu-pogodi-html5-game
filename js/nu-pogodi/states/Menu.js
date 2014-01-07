@@ -1,52 +1,72 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+* @author Paweł Winiecki <pawel.winiecki@nerdlab.pl>
+* @copyright 2014 NerdLab.pl
+* @license MIT License
+*/
+
+var NuPogodi = NuPogodi || {};
+
+/**
+ * MenuState constructor
+ *
+ * @constructor
+ * @see Phaser.State
  */
-GameSpace.MenuState = function() {
-    
+NuPogodi.MenuState = function() {
+
 };
 
-GameSpace.MenuState.prototype = {
+NuPogodi.MenuState.prototype = {
     create: function() {
-        if (typeof GameSpace.score != 'undefined') {
-            //var scale = 1;//GameSpace.scaler.spriteScale;
-            
-            this.game.add.text(this.game.world.centerX - 80, 180, "Your score: " + GameSpace.score, {
-                font: 32 + "px lets_go_digitalregular",
-                fill: "#000000",
-                align: "center"
-            });
+        // showing score if was set
+        if (typeof NuPogodi.score !== 'undefined') {
+            this.game.add.text(
+                    this.game.world.centerX - 90,
+                    this.game.world.centerY + 70,
+                    "Your score: " + NuPogodi.score,
+                    {
+                        font: 32 + "px lets_go_digitalregular",
+                        fill: "#000000",
+                        align: "center"
+                    }
+            );
         }
-        
-        GameSpace.controls.prepareMenuControls();
 
-//        var buttons = new Array();
-//        buttons['start'] = this.game.add.button(this.game.world.centerX - (60 * GameSpace.scaler.scale),
-//                this.game.world.centerY - (23 * GameSpace.scaler.scale),
-//                'start',
-//                this.beginGame, this);
-//        buttons['start'].scale.setTo(GameSpace.scaler.scale, GameSpace.scaler.scale);
-//        buttons['left-down'] = this.game.add.button(38 * GameSpace.scaler.scale, 234 * GameSpace.scaler.scale, 'button-left-down', this.beginGame, this);
-//        buttons['left-down'].scale.setTo(GameSpace.scaler.scale, GameSpace.scaler.scale);
-//        buttons['left-up'] = this.game.add.button(38 * GameSpace.scaler.scale, 178 * GameSpace.scaler.scale, 'button-left-up', this.beginGame, this);
-//        buttons['left-up'].scale.setTo(GameSpace.scaler.scale, GameSpace.scaler.scale);
-//        buttons['right-down'] = this.game.add.button(401 * GameSpace.scaler.scale, 234 * GameSpace.scaler.scale, 'button-right-down', this.beginGame, this);
-//        buttons['right-down'].scale.setTo(GameSpace.scaler.scale, GameSpace.scaler.scale);
-//        buttons['right-up'] = this.game.add.button(401 * GameSpace.scaler.scale, 178 * GameSpace.scaler.scale, 'button-right-up', this.beginGame, this);
-//        buttons['right-up'].scale.setTo(GameSpace.scaler.scale, GameSpace.scaler.scale);
-//
-//        var keys = new Array();
-//
-//        keys['ENTER'] = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
-//        keys['ENTER'].onDown.add(this.beginGame, this);
-//
-//        keys['SPACE'] = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-//        keys['SPACE'].onDown.add(this.beginGame, this);
+        //adding NerdLab logo and NuPogodi name
+        this.game.add.sprite(this.game.world.centerX - 150, 200, 'logo-nerd');
+        this.game.add.text(
+                this.game.world.centerX + 30,
+                200,
+                "Nu Pogodi",
+                {
+                    font: "30px lets_go_digitalregular",
+                    fill: "#000000",
+                    align: "right"
+                }
+        );
+
+        // adding beginGame function for space and enter
+        var enter = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+        enter.onDown.add(this.beginGame, this);
+        var space = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+        space.onDown.add(this.beginGame, this);
+
+        // adding buttons whit beginGame function
+        this.game.add.button(this.game.world.centerX - 120,
+                this.game.world.centerY - 55,
+                'start',
+                this.beginGame, this);
+        this.game.add.button(60, 472, 'button-left-down', this.beginGame, this);
+        this.game.add.button(60, 360, 'button-left-up', this.beginGame, this);
+        this.game.add.button(786, 472, 'button-right-down', this.beginGame, this);
+        this.game.add.button(786, 360, 'button-right-up', this.beginGame, this);
+
+
+    },
+    beginGame: function() {
+        this.game.input.keyboard.clearCaptures();
+        this.game.state.start('Game');
     }
-//    beginGame: function() {
-//        this.game.state.start('Game');
-//    }
 };
 
 

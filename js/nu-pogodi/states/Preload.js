@@ -1,18 +1,50 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-GameSpace = GameSpace || {};
+/**
+* @author Paweł Winiecki <pawel.winiecki@nerdlab.pl>
+* @copyright 2014 NerdLab.pl
+* @license MIT License
+*/
 
-GameSpace.PreloadState = function() {
-    
+var NuPogodi = NuPogodi || {};
+
+/**
+ * PreloadState constructor
+ *
+ * @constructor
+ * @see Phaser.State
+ */
+NuPogodi.PreloadState = function() {
+
 };
 
-GameSpace.PreloadState.prototype = {
+NuPogodi.PreloadState.prototype = {
+    /**
+     * Loading all assets using in Menu and Game states
+     * 
+     * @see Phaser.State.preload
+     */
     preload: function() {
+        // showing name and logo
+        this.game.add.sprite(this.game.world.centerX - 150, 200, 'logo-nerd');
+        this.game.add.text(this.game.world.centerX + 30, 200, "Nu Pogodi", {
+            font: "30px lets_go_digitalregular",
+            fill: "#000000",
+            align: "right"
+        });
+
+        // adding sprites for loader bar
+        this.game.add.sprite(this.game.world.centerX - 101,
+                this.game.world.centerY - 8,
+                'loader-empty');
+        this.loaderFull = this.game.add.sprite(this.game.world.centerX - 101,
+                this.game.world.centerY - 8,
+                'loader-full');
+        this.loaderFull.cropEnabled = true;
+        this.loaderFull.crop = new Phaser.Rectangle(0, 0, 0,
+                this.loaderFull.height);
+        this.loaderFull.name = 'loaderFull';
+
+        // array has image files name without path and extension
         var imagesData = [
-            //'background',
             'hare',
             'wolf-left',
             'basket-left-up',
@@ -49,15 +81,20 @@ GameSpace.PreloadState.prototype = {
             'start'
         ];
 
+        // loading images using array of names
         for (var i = 0; i < imagesData.length; i++) {
-            this.game.load.image(imagesData[i], './assets/sprites/' + imagesData[i] + '.svg');
+            this.game.load.image(imagesData[i],
+                    './assets/sprites/'
+                    + imagesData[i]
+                    + '.svg');
         }
-        
-        //this.game.load.spritesheet('life', './img/svg/life.svg', 14,12);
-        
-        this.game.load.spritesheet('bird-life', './assets/sprites/bird-life.svg', 27,24);
 
-        
+        // spritesheet with blinking bird
+        this.game.load.spritesheet('bird-life',
+                './assets/sprites/bird-life.svg',
+                27, 24);
+
+        // array has audio files name without path and extension
         var audioData = [
             'basket',
             'egg-crash',
@@ -67,20 +104,31 @@ GameSpace.PreloadState.prototype = {
             'egg-right-down'
         ];
 
+        // loading audio using array of names
         for (var i = 0; i < audioData.length; i++) {
-            this.game.load.audio(audioData[i], ['./assets/audio/' + audioData[i] + '.mp3']);
+            this.game.load.audio(audioData[i],
+                    ['./assets/audio/' + audioData[i] + '.mp3']);
         }
-        
+
+        // adding function to cast after adding every file 
+        this.load.onFileComplete.add(this.fileLoaded, this);
 
     },
-    
+    /**
+     * Function for progression of Progress Bar
+     */
+    fileLoaded: function(progress) {
+        this.loaderFull.crop.width = (202 / 100) * progress;
+    },
+    /**
+     * starting Menu state
+     * 
+     * @see Phaser.State.create
+     */
     create: function() {
-        GameSpace.controls = new GameSpace.Controls(this.game); 
-        
         this.game.state.start('Menu');
     },
-    
     update: function() {
-        
+
     }
 };

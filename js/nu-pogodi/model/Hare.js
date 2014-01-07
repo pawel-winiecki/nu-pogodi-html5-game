@@ -1,14 +1,31 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-var GameSpace = GameSpace || {};
+/**
+* @author Paweł Winiecki <pawel.winiecki@nerdlab.pl>
+* @copyright 2014 NerdLab.pl
+* @license MIT License
+*/
+var NuPogodi = NuPogodi || {};
 
-GameSpace.Hare = function(state) {
+/**
+ * Hare constructor
+ * 
+ * @class NuPogodi.Hare
+ * @constructor
+ * @param {NuPogodi.GameState} state - a reference to the currently running game state.
+ */
+NuPogodi.Hare = function(state) {
+    'use strict';
+    
+    /**
+     * @property {NuPogodi.GameState} state - local reference to game state.
+     */
     this.state = state;
+    
+    /**
+     * @property {number} dingCount - number of bell's moves.
+     */
     this.dingCount = 0;
 
+    // reset of hare and bell sprite
     this.state.sprites['hare'].reset(
             this.state.sprites['hare'].x,
             this.state.sprites['hare'].y
@@ -21,8 +38,16 @@ GameSpace.Hare = function(state) {
     this.state.isHare = true;
 };
 
-GameSpace.Hare.prototype = {
+NuPogodi.Hare.prototype = {
+    /**
+     * Movin hare's bell on screen.
+     *
+     * @method NuPogodi.Hare#move 
+     */
     move: function() {
+        'use strict';
+        
+        // kill actual bell sprite
         this.state.sprites['bell-' + (this.dingCount % 2)].kill();
 
         if (this.dingCount < 7) {
@@ -36,6 +61,11 @@ GameSpace.Hare.prototype = {
             this.hide();
         }
     },
+    /**
+     * Removing hare from screen.
+     *
+     * @method NuPogodi.Hare#move 
+     */
     hide: function() {
         this.state.sprites['hare'].kill();
         this.state.animations.splice(this.state.animations.indexOf(this), 1);

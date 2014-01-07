@@ -1,18 +1,31 @@
-"use strict";
+/* 
+ * @projectDescription NuPogodi HTML5 Game
+ *
+ * @version 0.0.1
+ * @author Paweł Winiecki <pawel.winiecki@nerdlab.pl>
+ * @copyright 2014 NerdLab.pl
+ * @license MIT License
+ * 
+ */
 
-var GameSpace = GameSpace || {};
+var NuPogodi = NuPogodi || {};
 
 (function() {
+    "use strict";
+    
     window.onload = function() {
 
-        GameSpace.game = new Phaser.Game(960, 640, Phaser.AUTO, 'board', null, true, true);
-        
-        GameSpace.game.state.add('Boot', GameSpace.BootState);
-        GameSpace.game.state.add('Preload', GameSpace.PreloadState);
-        GameSpace.game.state.add('Menu', GameSpace.MenuState);
-        GameSpace.game.state.add('Game', GameSpace.GameState);
+        // Creating Phaser Game object
+        NuPogodi.game = new Phaser.Game(960, 640, Phaser.AUTO, 'board', null, true, true);
 
-        GameSpace.game.state.start('Boot');
+        // Adding States to Game
+        NuPogodi.game.state.add('Boot', NuPogodi.BootState);
+        NuPogodi.game.state.add('Preload', NuPogodi.PreloadState);
+        NuPogodi.game.state.add('Menu', NuPogodi.MenuState);
+        NuPogodi.game.state.add('Game', NuPogodi.GameState);
+
+        // Starting whole game with Boot State
+        NuPogodi.game.state.start('Boot');
 
     };
 })();

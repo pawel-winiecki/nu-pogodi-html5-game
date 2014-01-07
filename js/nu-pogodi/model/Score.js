@@ -1,94 +1,143 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * @author Paweł Winiecki <pawel.winiecki@nerdlab.pl>
+ * @copyright 2014 NerdLab.pl
+ * @license MIT License
  */
-var GameSpace = GameSpace || {};
+var NuPogodi = NuPogodi || {};
 
-GameSpace.Score = function(state) {
+/**
+ * Score constructor
+ * 
+ * @class NuPogodi.Hare
+ * @constructor
+ * @param {NuPogodi.GameState} state - a reference to the currently running game state.
+ */
+NuPogodi.Score = function(state) {
+    'use strict';
+
+    /**
+     * @property {NuPogodi.GameState} state - local reference to game state.
+     * @default
+     */
     this.state = state;
+
+    /**
+     * @property {number} level - level of difficulty.
+     * @default
+     */
+    this.level = 0;
+
+    /**
+     * @property {number} savedEggs - eggs saved by player.
+     * @default
+     */
+    this.savedEggs = 0;
+
+    /**
+     * @property {number} brokenEggs - eggs didn't save by player.
+     * @default
+     */
+    this.brokenEggs = 0;
+
+    /**
+     * @property {Phaser. Text} savedText - text showing saved eggs.
+     * @default
+     */
+    this.savedText = null;
 };
 
-GameSpace.Score.prototype = {
-    level: 0,
-    savedEggs: 0,
-    brokenEggs: 0,
-    savedText: null,
+NuPogodi.Score.prototype = {
+    /**
+     * Change score with saved egg.
+     *
+     * @method NuPogodi.Score#eggSaved 
+     */
     eggSaved: function() {
+        'use strict';
+
         this.savedEggs++;
         if (!(this.savedEggs % 10)) {
             this.level++;
         }
-        this.savedText.setText(this.savedEggs);
+        if (this.savedText) {
+            this.savedText.setText(this.savedEggs);
+        }
 
     },
     eggBroken: function() {
+        'use strict';
+
+        // hare on screen give more chance for player
         if (this.state.isHare) {
             this.brokenEggs += 0.5;
         } else {
-            //this.brokenEggs++;
-            this.brokenEggs += 0.5;
+            this.brokenEggs++;
         }
 
-        //this.brokenText.setText(this.brokenEggs);
+        var spriteStop;
+        var spriteReset;
+        var spritePlay;
+        
+        // chosing Bird Life sprite to reset or play/stop animation
         switch (this.brokenEggs) {
             case 0.5:
-                this.state.sprites['bird-life-1'].reset(
-                        this.state.sprites['bird-life-1'].x,
-                        this.state.sprites['bird-life-1'].y
-                        );
-                this.state.sprites['bird-life-1'].animations.add('blink');
-                this.state.sprites['bird-life-1'].animations.play('blink', 2, true);
+                spriteReset = 'bird-life-1';
+                spritePlay = 'bird-life-1';
                 break;
             case 1:
-                this.state.sprites['bird-life-1'].animations.stop('blink', 'bird-life', true);
-                this.state.sprites['bird-life-1'].reset(
-                        this.state.sprites['bird-life-1'].x,
-                        this.state.sprites['bird-life-1'].y
-                        );
-                this.state.sprites['bird-life-1'].loadTexture('bird-life',0);
+                spriteStop = 'bird-life-1';
+                spriteReset = 'bird-life-1';
                 break;
             case 1.5:
-                this.state.sprites['bird-life-1'].animations.stop('blink', 'bird-life', true);
-                this.state.sprites['bird-life-1'].loadTexture('bird-life',0);
-                this.state.sprites['bird-life-2'].reset(
-                        this.state.sprites['bird-life-2'].x,
-                        this.state.sprites['bird-life-2'].y
-                        );
-                this.state.sprites['bird-life-2'].animations.add('blink');
-                this.state.sprites['bird-life-2'].animations.play('blink', 2, true);
+                spriteStop = 'bird-life-1';
+                spriteReset = 'bird-life-2';
+                spritePlay = 'bird-life-2';
                 break;
             case 2:
-                this.state.sprites['bird-life-2'].animations.stop('blink', 'bird-life', true);
-                this.state.sprites['bird-life-2'].loadTexture('bird-life',0);
-                this.state.sprites['bird-life-2'].reset(
-                        this.state.sprites['bird-life-2'].x,
-                        this.state.sprites['bird-life-2'].y
-                        );
+                spriteStop = 'bird-life-2';
+                spriteReset = 'bird-life-2';
                 break;
             case 2.5:
-                this.state.sprites['bird-life-2'].animations.stop('blink', 'bird-life', true);
-                this.state.sprites['bird-life-2'].loadTexture('bird-life',0);
-                this.state.sprites['bird-life-3'].reset(
-                        this.state.sprites['bird-life-3'].x,
-                        this.state.sprites['bird-life-3'].y
-                        );
-                this.state.sprites['bird-life-3'].animations.add('blink');
-                this.state.sprites['bird-life-3'].animations.play('blink', 2, true);
+                spriteStop = 'bird-life-2';
+                spriteReset = 'bird-life-3';
+                spritePlay = 'bird-life-3';
                 break;
             case 3:
-                this.state.sprites['bird-life-3'].animations.stop('blink', 'bird-life', true);
-                this.state.sprites['bird-life-3'].loadTexture('bird-life',0);
-                this.state.sprites['bird-life-3'].reset(
-                        this.state.sprites['bird-life-3'].x,
-                        this.state.sprites['bird-life-3'].y
-                        );
+                spriteStop = 'bird-life-3';
+                spriteReset = 'bird-life-3';
                 break;
             default:
                 this.state.endGame();
         }
+        
+        // stopping sprite annimation
+        if (spriteStop) {
+            this.state.sprites[spriteStop].animations.stop('blink', 'bird-life', true);
+            this.state.sprites[spriteStop].loadTexture('bird-life', 0);
+        }
+
+        // reset sprite
+        if (spriteReset) {
+            this.state.sprites[spriteReset].reset(
+                    this.state.sprites[spriteReset].x,
+                    this.state.sprites[spriteReset].y
+                    );
+        }
+        
+        // starting sprite annimation
+        if (spritePlay) {
+            this.state.sprites[spritePlay].animations.add('blink');
+            this.state.sprites[spritePlay].animations.play('blink', 2, true);
+        }
     },
+    /**
+     * Change score with broken egg.
+     *
+     * @method NuPogodi.Score#brokenEgg 
+     */
     resetScore: function() {
+        'use strict';
+
         this.savedEggs = 0;
         this.brokenEggs = 0;
         this.level = 0;
