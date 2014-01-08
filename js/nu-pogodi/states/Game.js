@@ -1,8 +1,8 @@
 /**
-* @author Paweł Winiecki <pawel.winiecki@nerdlab.pl>
-* @copyright 2014 NerdLab.pl
-* @license MIT License
-*/
+ * @author Paweł Winiecki <pawel.winiecki@nerdlab.pl>
+ * @copyright 2014 NerdLab.pl
+ * @license MIT License
+ */
 
 var NuPogodi = NuPogodi || {};
 
@@ -21,13 +21,13 @@ NuPogodi.GameState = function() {
      * @default
      */
     this.audio = {};
-    
+
     /**
      * @property {object} sprites - simple key-value container for Phaser.Sprite objects.
      * @default
      */
     this.sprites = {};
-    
+
     /**
      * @property {Array} animations - array of 'animation' objects.
      * @default
@@ -39,13 +39,13 @@ NuPogodi.GameState = function() {
      * @default
      */
     this.score = new NuPogodi.Score(this);
-    
+
     /**
      * @property {NuPogodi.Wolf} wolf - object handlig wolf on screen.
      * @default
      */
     this.wolf = new NuPogodi.Wolf(this);
-    
+
     /**
      * @property {NuPogodi.Eggs} eggs - container of eggs.
      * @default
@@ -57,25 +57,25 @@ NuPogodi.GameState = function() {
      * @default
      */
     this.newEggTimer = 0;
-    
+
     /**
      * @property {number} eggMoveTimer - timer of moving next egg.
      * @default
      */
     this.eggMoveTimer = 0;
-    
+
     /**
      * @property {number} animationsTimer - timer of moving all 'animations'.
      * @default
      */
     this.animationsTimer = 0;
-    
+
     /**
      * @property {number} hareShowTimer - timer of showing hare on screen.
      * @default
      */
     this.hareShowTimer = 0;
-    
+
     /**
      * @property {boolean} isHare - true if hare is shown on screen otherwise is false.
      * @default
@@ -208,18 +208,21 @@ NuPogodi.GameState.prototype = {
      * @see Phaser.State#update
      */
     update: function() {
-        // factor is using for calculate timers for new egg end move egg
-        // 143 level is limit, later log() take to higher value
-        var factor = (this.score.level < 143) ? (Math.log(this.score.level + 1) / 5) : 0.99;
-
         if (this.game.time.now > this.newEggTimer) {
             var added = this.eggs.addNewEgg();
-            this.newEggTimer = this.game.time.now + (1250 - (1250 * factor)) + ((added) ? this.eggs.length * (250 - (250 * factor)) : 0);
+            var factor = this.factor();
+            this.newEggTimer = this.game.time.now
+                    + (1250 - (1250 * factor))
+                    + ((added) ? this.eggs.length * (250 - (250 * factor)) : 0);
         }
 
         if (this.game.time.now > this.eggMoveTimer) {
+            console.log('saved eggs: '+this.score.savedEggs);
             var moved = this.eggs.moveNextEgg();
-            this.eggMoveTimer = this.game.time.now + ((moved) ? ((1000 - (1000 * factor)) / this.eggs.length + 1) : 0);
+            this.eggMoveTimer = this.game.time.now
+                    + ((moved) ? ((1000 - (1000 * this.factor())) / this.eggs.length + 1) : 0);
+            console.log('saved eggs: '+this.score.savedEggs)
+            console.log('moved: '+moved);
         }
 
 
@@ -247,7 +250,7 @@ NuPogodi.GameState.prototype = {
     endGame: function() {
         // it's clear all keyboards actions before change state
         this.game.input.keyboard.clearCaptures()
-        
+
         // setting timers to avoid problems in another game
         this.newEggTimer = this.game.time.now + 10000;
         this.eggMoveTimer = this.game.time.now + 10000;
@@ -293,5 +296,15 @@ NuPogodi.GameState.prototype = {
     actionButtonRightUp: function() {
         this.wolf.moveWolfRight();
         this.wolf.moveBasketUp();
+    },
+    /**
+     * Method for calcualting factor for timers. Factor is using for calculate 
+     * timers for new egg end move egg. 143 level is limit, later log() give to higher value
+     * 
+     * @method NuPogodi.GameState#factor
+     * @return {number} factor for calcualte timers.
+     */
+    factor: function() {
+        return (this.score.level < 143) ? (Math.log(this.score.level + 1) / 5) : 0.99;
     }
 };

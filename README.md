@@ -1,7 +1,7 @@
 NuPogodi HTML5 Game 0.0.1
 ========
 
-NuPogodi is simple HTML5 Game. Project has been created using [Phaser](http://phaser.io/) Engine
+NuPogodi is simple HTML5 Game. Project has been created using [Phaser](http://phaser.io/) Engine. You can play it here: [http://nerdlab.pl/uploads/projects/nu-pogodi/index.html](http://nerdlab.pl/uploads/projects/nu-pogodi/index.html)
 
 NuPogodi HTML5 Game was created by Paweł Winiecki, [http://nerdlab.pl/](http://nerdlab.pl/)
 

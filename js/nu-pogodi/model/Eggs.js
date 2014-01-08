@@ -145,12 +145,13 @@ NuPogodi.Eggs.prototype = {
         'use strict';
 
         var hasMoved = false;
+        var node = this.nextEgg;
 
         if (this.nextEgg) {
-            hasMoved = this.nextEgg.data.move();
+            hasMoved = node.data.move();
             if (this.length > 0) {
-                if (this.nextEgg.next) {
-                    this.nextEgg = this.nextEgg.next;
+                if (node.next) {
+                    this.nextEgg = node.next;
                 } else {
                     this.nextEgg = this.head;
                 }

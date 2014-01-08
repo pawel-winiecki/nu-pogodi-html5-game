@@ -55,6 +55,7 @@ NuPogodi.Score.prototype = {
         'use strict';
 
         this.savedEggs++;
+        
         if (!(this.savedEggs % 10)) {
             // level increase every 10 saved eggs
             this.level++;
