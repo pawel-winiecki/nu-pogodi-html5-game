@@ -40,7 +40,7 @@ NuPogodi.Bird.prototype = {
      *
      * @method NuPogodi.Bird#move
      */
-    move: function() {
+    move() {
         'use strict';
         // actual bird sprite is killed
         if (this.step > 0) {

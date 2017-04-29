@@ -91,7 +91,7 @@ NuPogodi.GameState.prototype = {
      * @method NuPogodi.GameState#create 
      * @see Phaser.State#create
      */
-    create: function() {
+    create() {
         // clearing data
         this.eggs.clear();
         this.animations = new Array();
@@ -207,7 +207,7 @@ NuPogodi.GameState.prototype = {
      * @method NuPogodi.GameState#update
      * @see Phaser.State#update
      */
-    update: function() {
+    update() {
         if (this.game.time.now > this.newEggTimer) {
             var added = this.eggs.addNewEgg();
             var factor = this.factor();
@@ -247,7 +247,7 @@ NuPogodi.GameState.prototype = {
      * 
      * @method NuPogodi.GameState#endGame
      */
-    endGame: function() {
+    endGame() {
         // it's clear all keyboards actions before change state
         this.game.input.keyboard.clearCaptures()
 
@@ -266,7 +266,7 @@ NuPogodi.GameState.prototype = {
      * 
      * @method NuPogodi.GameState#actionButtonLeftDown
      */
-    actionButtonLeftDown: function() {
+    actionButtonLeftDown() {
         this.wolf.moveWolfLeft();
         this.wolf.moveBasketDown();
     },
@@ -275,7 +275,7 @@ NuPogodi.GameState.prototype = {
      * 
      * @method NuPogodi.GameState#actionButtonLeftUp
      */
-    actionButtonLeftUp: function() {
+    actionButtonLeftUp() {
         this.wolf.moveWolfLeft();
         this.wolf.moveBasketUp();
     },
@@ -284,7 +284,7 @@ NuPogodi.GameState.prototype = {
      * 
      * @method NuPogodi.GameState#actionButtonRightDown
      */
-    actionButtonRightDown: function() {
+    actionButtonRightDown() {
         this.wolf.moveWolfRight();
         this.wolf.moveBasketDown();
     },
@@ -293,7 +293,7 @@ NuPogodi.GameState.prototype = {
      * 
      * @method NuPogodi.GameState#actionButtonRightUp
      */
-    actionButtonRightUp: function() {
+    actionButtonRightUp() {
         this.wolf.moveWolfRight();
         this.wolf.moveBasketUp();
     },
@@ -304,7 +304,7 @@ NuPogodi.GameState.prototype = {
      * @method NuPogodi.GameState#factor
      * @return {number} factor for calcualte timers.
      */
-    factor: function() {
+    factor() {
         return (this.score.level < 143) ? (Math.log(this.score.level + 1) / 5) : 0.99;
     }
 };

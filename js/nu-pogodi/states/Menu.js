@@ -13,7 +13,7 @@ var NuPogodi = NuPogodi || {};
  * @constructor
  * @see Phaser.State
  */
-NuPogodi.MenuState = function() {
+NuPogodi.MenuState = () => {
 
 };
 
@@ -24,7 +24,7 @@ NuPogodi.MenuState.prototype = {
      * @method NuPogodi.MenuState#create 
      * @see Phaser.State#create
      */
-    create: function() {
+    create() {
         // showing score if was set
         if (typeof NuPogodi.score != 'undefined') {
             this.game.add.text(
@@ -75,7 +75,7 @@ NuPogodi.MenuState.prototype = {
      * 
      * @method NuPogodi.MenuState#startGame
      */
-    beginGame: function() {
+    beginGame() {
         this.game.input.keyboard.clearCaptures();
         this.game.state.start('Game');
     }

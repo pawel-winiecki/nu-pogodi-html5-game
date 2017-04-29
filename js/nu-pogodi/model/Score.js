@@ -51,7 +51,7 @@ NuPogodi.Score.prototype = {
      *
      * @method NuPogodi.Score#eggSaved 
      */
-    eggSaved: function() {
+    eggSaved() {
         'use strict';
 
         this.savedEggs++;
@@ -65,7 +65,7 @@ NuPogodi.Score.prototype = {
         }
 
     },
-    eggBroken: function() {
+    eggBroken() {
         'use strict';
 
         // hare on screen give more chance for player
@@ -136,7 +136,7 @@ NuPogodi.Score.prototype = {
      *
      * @method NuPogodi.Score#brokenEgg 
      */
-    resetScore: function() {
+    resetScore() {
         'use strict';
 
         this.savedEggs = 0;

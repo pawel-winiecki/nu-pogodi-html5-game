@@ -5,17 +5,17 @@
  */
 GameSpace = {} || GameSpace;
 
-GameSpace.Sounds = function() {
+GameSpace.Sounds = () => {
 
 };
 
 GameSpace.Sounds.prototype = {
-    createGameSounds: function(game, audioData) {
+    createGameSounds(game, audioData) {
         for (var i = 0; i < audioData.length; i++) {
             this[audioData[i]] = game.add.audio(audioData[i]);
         }
     },
-    createSounds: function(audioData) {
+    createSounds(audioData) {
         for (var i = 0; i < audioData.length; i++) {
             this[audioData[i]] = new Media('/android_asset/www/audio/' + audioData[i] + '.mp3' );
         }

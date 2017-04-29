@@ -60,7 +60,7 @@ NuPogodi.Egg.prototype = {
      * @method NuPogodi.Egg#move
      * @return {boolean} Return true if egg has moved otherwise return false.
      */
-    move: function() {
+    move() {
         'use strict';
         
         // checking it it is last step

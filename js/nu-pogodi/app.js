@@ -10,10 +10,10 @@
 
 var NuPogodi = NuPogodi || {};
 
-(function() {
+((() => {
     "use strict";
     
-    window.onload = function() {
+    window.onload = () => {
 
         // Creating Phaser Game object
         NuPogodi.game = new Phaser.Game(960, 640, Phaser.AUTO, 'board', null, true, true);
@@ -28,5 +28,5 @@ var NuPogodi = NuPogodi || {};
         NuPogodi.game.state.start('Boot');
 
     };
-})();
+}))();
 

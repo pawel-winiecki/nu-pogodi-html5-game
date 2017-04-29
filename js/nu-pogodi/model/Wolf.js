@@ -47,7 +47,7 @@ NuPogodi.Wolf.prototype = {
      *
      * @method NuPogodi.Wolf#render 
      */
-    render: function() {
+    render() {
         'use strict';
         
         var wolfStringPosition = (this.wolfPosition ? 'right' : 'left');
@@ -70,7 +70,7 @@ NuPogodi.Wolf.prototype = {
      *
      * @method NuPogodi.Wolf#moveLeft
      */
-    moveWolfLeft: function() {
+    moveWolfLeft() {
         'use strict';
         
         if (this.wolfPosition) {
@@ -92,7 +92,7 @@ NuPogodi.Wolf.prototype = {
      *
      * @method NuPogodi.Wolf#moveRight
      */
-    moveWolfRight: function() {
+    moveWolfRight() {
         'use strict';
         
         if (!this.wolfPosition) {
@@ -114,7 +114,7 @@ NuPogodi.Wolf.prototype = {
      *
      * @method NuPogodi.Wolf#moveBasketUp
      */
-    moveBasketUp: function() {
+    moveBasketUp() {
         'use strict';
         
         if (!this.basketPosition) {
@@ -132,7 +132,7 @@ NuPogodi.Wolf.prototype = {
      *
      * @method NuPogodi.Wolf#moveBasketDown
      */
-    moveBasketDown: function() {
+    moveBasketDown() {
         'use strict';
         
         if (this.basketPosition) {
@@ -152,7 +152,7 @@ NuPogodi.Wolf.prototype = {
      * @param {string} spriteToKill - label of sprite to kill.
      * @param {string} spriteToReset - label of sprite to reset.
      */
-    move: function(spriteToKill, spriteToReset) {
+    move(spriteToKill, spriteToReset) {
         'use strict';
         
         this.state.sprites[spriteToKill].kill();
@@ -167,7 +167,7 @@ NuPogodi.Wolf.prototype = {
      * @method NuPogodi.Wolf#getBasketPosition
      * @return {boolean}
      */
-    getBasketPosition: function() {
+    getBasketPosition() {
         return this.basketPosition;
     },
     /**
@@ -176,7 +176,7 @@ NuPogodi.Wolf.prototype = {
      * @method NuPogodi.Wolf#wolfPosition
      * @return {boolean}
      */
-    getWolfPosition: function() {
+    getWolfPosition() {
         return this.wolfPosition;
     }
 
