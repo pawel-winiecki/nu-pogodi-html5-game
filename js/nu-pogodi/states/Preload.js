@@ -12,7 +12,7 @@ var NuPogodi = NuPogodi || {};
  * @constructor
  * @see Phaser.State
  */
-NuPogodi.PreloadState = function() {
+NuPogodi.PreloadState = () => {
 
 };
 
@@ -24,7 +24,7 @@ NuPogodi.PreloadState.prototype = {
      * @method NuPogodi.PreloadState#preload
      * @see Phaser.State.preload
      */
-    preload: function() {
+    preload() {
         // showing name and logo
         this.game.add.sprite(this.game.world.centerX - 150, 200, 'logo-nerd');
         this.game.add.text(this.game.world.centerX + 30, 200, "Nu Pogodi", {
@@ -122,7 +122,7 @@ NuPogodi.PreloadState.prototype = {
      * @class NuPogodi.MenuState
      * @method NuPogodi.PreloadState#fileLoaded
      */
-    fileLoaded: function(progress) {
+    fileLoaded(progress) {
         // progression of Progress Bar
         this.loaderFull.crop.width = (202 / 100) * progress;
     },
@@ -131,10 +131,10 @@ NuPogodi.PreloadState.prototype = {
      * 
      * @see Phaser.State.create
      */
-    create: function() {
+    create() {
         this.game.state.start('Menu');
     },
-    update: function() {
+    update() {
 
     }
 };

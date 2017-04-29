@@ -48,7 +48,7 @@ NuPogodi.Eggs.prototype = {
      * @method NuPogodi.Eggs#add
      * @param {NuPogodi.Egg} egg - egg to add
      */
-    add: function(egg) {
+    add(egg) {
         'use strict';
 
         // simple object as node. Both property are NuPogodi.Egg
@@ -75,7 +75,7 @@ NuPogodi.Eggs.prototype = {
      * @method NuPogodi.Eggs#remove
      * @param {NuPogodi.Egg} egg - egg to remove. 
      */
-    remove: function(egg) {
+    remove(egg) {
         'use strict';
 
         // checking does collection have eny egg.
@@ -116,7 +116,7 @@ NuPogodi.Eggs.prototype = {
      * @method NuPogodi.Eggs#addNewEgg
      * @return {boolean} Return true if egg has added otherwise return false.
      */
-    addNewEgg: function() {
+    addNewEgg() {
         'use strict';
 
         var horizontal = (Math.random() > 0.5) ? true : false;
@@ -141,7 +141,7 @@ NuPogodi.Eggs.prototype = {
      * @method NuPogodi.Eggs#moveNextEgg
      * @return {boolean} Return true if egg has moved otherwise return false.
      */
-    moveNextEgg: function() {
+    moveNextEgg() {
         'use strict';
 
         var hasMoved = false;
@@ -167,7 +167,7 @@ NuPogodi.Eggs.prototype = {
      *
      * @method NuPogodi.Eggs#clear
      */
-    clear: function() {
+    clear() {
         'use strict';
 
         this.head = null;

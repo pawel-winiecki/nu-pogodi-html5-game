@@ -44,7 +44,7 @@ NuPogodi.Hare.prototype = {
      *
      * @method NuPogodi.Hare#move 
      */
-    move: function() {
+    move() {
         'use strict';
         
         // kill actual bell sprite
@@ -66,7 +66,7 @@ NuPogodi.Hare.prototype = {
      *
      * @method NuPogodi.Hare#move 
      */
-    hide: function() {
+    hide() {
         this.state.sprites['hare'].kill();
         this.state.animations.splice(this.state.animations.indexOf(this), 1);
         this.state.isHare = false;
